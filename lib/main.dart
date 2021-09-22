@@ -27,10 +27,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Color _color = Color(0xff003366);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: _color,
         leading: Icon(Icons.arrow_back),
         title: Text(widget.title),
       ),
@@ -132,6 +134,7 @@ class CustomButton extends StatelessWidget {
               side: BorderSide(color: Colors.black12),
             ),
           ),
+
         ),
       ),
     );
@@ -171,6 +174,10 @@ class CustomField extends StatelessWidget {
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelText: text,
+          labelStyle: TextStyle(
+            color: Color(0xff003366),
+            fontWeight: FontWeight.bold,
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
             borderSide:
