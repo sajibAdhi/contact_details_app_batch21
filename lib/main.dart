@@ -8,6 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -30,19 +31,107 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(Icons.arrow_back),
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Column(
-                children: <Widget>[
-                  CustomHeader(text: 'Present Address'),
-                ],
+      body:SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    CustomHeader(text: 'Present Address'),
+                    CustomField(text: "District * "),
+                    CustomField(text: "Thana * "),
+                    CustomField(text: "House No / Road / Village * "),
+                  ],
+                ),
               ),
-            )
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    CustomHeader(text: 'Permanent Address'),
+                    CustomField(text: "District * "),
+                    CustomField(text: "Thana * "),
+                    CustomField(text: "House No / Road / Village * "),
+                  ],
+                ),
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    CustomHeader(text: 'Mobile Number'),
+                    CustomField(text: "Mobile No 1 "),
+                    CustomButton(text: 'Add Mobile No.', icon: Icons.phone),
+                  ],
+                ),
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    CustomHeader(text: 'Email AAddress'),
+                    CustomField(text: "Primary Email Address "),
+                    CustomButton(text: 'Add Email Address.', icon: Icons.email),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                alignment: Alignment.centerRight,
+                child:   FloatingActionButton(
+                  onPressed: () {  },
+                  child: Icon(Icons.check
+                  ),
+                  backgroundColor: Colors.red,
+                )
+              ),
+              Container(
+                height: 50,
+                child: Image.network("https://img.freepik.com/free-vector/modern-buy-one-get-one-free-sale-yellow-banner-design_1017-15625.jpg?size=626&ext=jpg"
+              ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class CustomButton extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  const CustomButton({Key? key, required this.text, required this.icon}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+      margin: EdgeInsets.only(left: 180),
+      width: 180.0,
+      height: 30.0,
+      child: ElevatedButton(
+        onPressed: (){},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text(
+              text, style: TextStyle(color: Colors.red),),
+            Icon(icon, color: Colors.red,),
           ],
+        ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(color: Colors.black12),
+            ),
+          ),
         ),
       ),
     );
@@ -57,8 +146,8 @@ class CustomHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 180),
-      padding: EdgeInsets.all(10),
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.all( 20),
       child: Text(
         text,
         style: TextStyle(
@@ -72,23 +161,28 @@ class CustomHeader extends StatelessWidget {
 
 class CustomField extends StatelessWidget {
   final String text;
-  final IconData icon;
-  const CustomField({Key? key, required this.text, required this.icon}) : super(key: key);
+  const CustomField({Key? key, required this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        size: 26,
-        color: Colors.black,
+    return Container(
+      padding: const EdgeInsets.only(bottom: 10, left: 20, right: 20, top: 5),
+      child: TextField(
+        decoration: InputDecoration(
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          labelText: text,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide:
+            const BorderSide(color: Colors.blue, width: 1.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: const BorderSide(
+                color: Colors.lightGreen, width: 1.0),
+          ),
+        ),
       ),
-      title: Text(
-        text,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.normal,
-        ),),
     );
   }
 }
